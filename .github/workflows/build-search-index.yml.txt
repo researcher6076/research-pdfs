@@ -1,0 +1,31 @@
+name: Build Search Index
+
+on:
+  push:
+    paths:
+      - "pdfs/*.pdf"
+      - "scripts/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          npm install pdf-parse
+
+      - name: Build search index
+        run: node scripts/build-index.js
+
+      - name: Commit search index
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add updates/search-index.json
+          git commit -m "Update search index" || echo "No changes"
+          git push
