@@ -1,10 +1,11 @@
 <style id="my-stack-responsive-tables">
 .my-stack-mobile-cards { display: none; }
-.my-stack-desktop-table { display: table !important; width: 100% !important; min-width: 0 !important; max-width: 100% !important; table-layout: fixed; box-sizing: border-box; }
-.my-stack-desktop-table .my-stack-function-column { width: 20%; }
-.my-stack-desktop-table .my-stack-item-column { width: 45%; }
-.my-stack-desktop-table .my-stack-schedule-column { width: 35%; }
-.my-stack-desktop-table th, .my-stack-desktop-table td { white-space: normal !important; overflow-wrap: anywhere; word-break: normal; box-sizing: border-box; }
+.ehr-content .my-stack-desktop-table, .my-stack-desktop-table { display: table !important; width: 100% !important; inline-size: 100% !important; min-width: 0 !important; min-inline-size: 0 !important; max-width: 100% !important; max-inline-size: 100% !important; table-layout: fixed !important; box-sizing: border-box !important; }
+.my-stack-desktop-table .my-stack-function-column { width: 20% !important; }
+.my-stack-desktop-table .my-stack-item-column { width: 45% !important; }
+.my-stack-desktop-table .my-stack-schedule-column { width: 35% !important; }
+.ehr-content .my-stack-desktop-table th, .ehr-content .my-stack-desktop-table td, .my-stack-desktop-table th, .my-stack-desktop-table td { width: auto !important; min-width: 0 !important; max-width: none !important; white-space: normal !important; overflow-wrap: anywhere !important; word-break: break-word !important; box-sizing: border-box !important; }
+.ehr-content .my-stack-desktop-table th *, .ehr-content .my-stack-desktop-table td *, .my-stack-desktop-table th *, .my-stack-desktop-table td * { min-width: 0 !important; max-width: 100% !important; white-space: normal !important; overflow-wrap: anywhere !important; word-break: break-word !important; }
 .my-stack-desktop-table td, .my-stack-desktop-table td p { line-height: 1.4; }
 .my-stack-desktop-table td p { margin: 0; }
 .my-stack-desktop-table .my-stack-function { vertical-align: middle; }
