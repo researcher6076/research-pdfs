@@ -42,3 +42,4 @@ jobs:
           FRAMER_LAST_UPDATED_FIELD_ID: ${{ vars.FRAMER_LAST_UPDATED_FIELD_ID }}
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.sha }}
+          PUBLISH_FRAMER: "true"
