@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "inspect-framer": "node scripts/inspect-framer.mjs"
+    "inspect-framer": "node scripts/inspect-framer.mjs",
+    "sync-one-date": "node scripts/sync-one-date.mjs"
   },
   "dependencies": {
     "framer-api": "latest"
