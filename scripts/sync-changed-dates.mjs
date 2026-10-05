@@ -13,6 +13,9 @@ const requiredVariables = [
   "AFTER_SHA",
 ]
 
+const publishFramer =
+  String(process.env.PUBLISH_FRAMER).toLowerCase() === "true"
+
 for (const variable of requiredVariables) {
   if (!process.env[variable]) {
     throw new Error(`Missing required environment variable: ${variable}`)
@@ -145,7 +148,26 @@ try {
 
   console.log(`Updated CMS records: ${updatedCount}`)
   console.log(`Skipped repository PDFs: ${skippedCount}`)
-  console.log("The Framer project was not published.")
+
+  if (updatedCount > 0 && publishFramer) {
+    console.log("Publishing the updated Framer project...")
+
+    const publication = await framer.publish()
+    const deploymentId = publication.deployment.id
+
+    console.log(`Created Framer deployment: ${deploymentId}`)
+    console.log("Promoting the deployment to production...")
+
+    await framer.deploy(deploymentId)
+
+    console.log("Framer was published to production successfully.")
+  } else if (updatedCount > 0) {
+    console.log("Framer publishing is disabled for this run.")
+  } else {
+    console.log("Nothing was published because no CMS records changed.")
+  }
+
+
 } finally {
   await framer.disconnect()
 }
