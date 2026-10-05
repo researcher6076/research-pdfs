@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "inspect-framer": "node scripts/inspect-framer.mjs",
-    "sync-one-date": "node scripts/sync-one-date.mjs"
+    "sync-one-date": "node scripts/sync-one-date.mjs",
+    "sync-all-dates": "node scripts/sync-all-dates.mjs"  
   },
   "dependencies": {
     "framer-api": "latest"
