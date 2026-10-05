@@ -176,3 +176,6 @@ try {
     console.log(`\nUpdated ${matches.length} Framer CMS records.`)
     console.log("The Framer project was not published.")
   }
+} finally {
+  await framer.disconnect()
+}
