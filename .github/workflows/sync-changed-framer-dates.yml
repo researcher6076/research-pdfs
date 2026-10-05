@@ -1,0 +1,44 @@
+name: Sync Changed Framer Dates
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "pdfs/**/*.pdf"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: framer-date-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-changed-dates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out complete Git history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Update changed Framer CMS dates
+        run: npm run sync-changed-dates
+        env:
+          FRAMER_API_KEY: ${{ secrets.FRAMER_API_KEY }}
+          FRAMER_PROJECT_URL: ${{ secrets.FRAMER_PROJECT_URL }}
+          FRAMER_COLLECTION_ID: ${{ vars.FRAMER_COLLECTION_ID }}
+          FRAMER_SOURCE_FILENAME_FIELD_ID: ${{ vars.FRAMER_SOURCE_FILENAME_FIELD_ID }}
+          FRAMER_LAST_UPDATED_FIELD_ID: ${{ vars.FRAMER_LAST_UPDATED_FIELD_ID }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}

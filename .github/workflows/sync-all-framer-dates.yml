@@ -1,0 +1,41 @@
+name: Sync All Framer Dates
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply_changes:
+        description: Update Framer after validating every match
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  sync-all-dates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out complete Git history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Audit or update Framer CMS dates
+        run: npm run sync-all-dates
+        env:
+          FRAMER_API_KEY: ${{ secrets.FRAMER_API_KEY }}
+          FRAMER_PROJECT_URL: ${{ secrets.FRAMER_PROJECT_URL }}
+          FRAMER_COLLECTION_ID: ${{ vars.FRAMER_COLLECTION_ID }}
+          FRAMER_SOURCE_FILENAME_FIELD_ID: ${{ vars.FRAMER_SOURCE_FILENAME_FIELD_ID }}
+          FRAMER_LAST_UPDATED_FIELD_ID: ${{ vars.FRAMER_LAST_UPDATED_FIELD_ID }}
+          APPLY_CHANGES: ${{ inputs.apply_changes }}
