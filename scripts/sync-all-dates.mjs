@@ -153,30 +153,26 @@ try {
 
   if (!applyChanges) {
     console.log("\nDRY RUN: No Framer records were changed.")
-    return
-  }
+  } else {
+    if (unmatchedCmsItems.length > 0) {
+      throw new Error(
+        "No records were changed because some CMS records were unmatched."
+      )
+    }
 
-  if (unmatchedCmsItems.length > 0) {
-    throw new Error(
-      "No records were changed because some CMS records were unmatched."
-    )
-  }
-
-  for (const match of matches) {
-    await match.item.setAttributes({
-      fieldData: {
-        [lastUpdatedFieldId]: {
-          type: "date",
-          value: match.isoDate,
+    for (const match of matches) {
+      await match.item.setAttributes({
+        fieldData: {
+          [lastUpdatedFieldId]: {
+            type: "date",
+            value: match.isoDate,
+          },
         },
-      },
-    })
+      })
 
-    console.log(`UPDATED: ${match.sourceFilename}`)
+      console.log(`UPDATED: ${match.sourceFilename}`)
+    }
+
+    console.log(`\nUpdated ${matches.length} Framer CMS records.`)
+    console.log("The Framer project was not published.")
   }
-
-  console.log(`\nUpdated ${matches.length} Framer CMS records.`)
-  console.log("The Framer project was not published.")
-} finally {
-  await framer.disconnect()
-}
