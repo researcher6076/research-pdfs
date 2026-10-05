@@ -1,0 +1,11 @@
+{
+  "name": "researcher6076",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "inspect-framer": "node scripts/inspect-framer.mjs"
+  },
+  "dependencies": {
+    "framer-api": "latest"
+  }
+}
